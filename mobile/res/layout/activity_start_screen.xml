@@ -1,0 +1,153 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BCDCED"
+    android:gravity="center"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StartScreenActivity"
+    android:stretchColumns="*" >
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:id="@+id/btnStartGame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="startGame"
+            android:scaleType="fitCenter"
+            android:src="@drawable/startbuttonstates"
+            tools:ignore="ContentDescription" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:measureWithLargestChild="true" >
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_weight="1" >
+
+                <ImageButton
+                    android:id="@+id/btnViewScores"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:onClick="viewScoreTable"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/highscorebuttonstates"
+                    tools:ignore="ContentDescription" />
+            </TableRow>
+        </TableLayout>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:paddingLeft="150dp" >
+
+        <ImageButton
+            android:id="@+id/btnTutorial"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="launchTutorial"
+            android:scaleType="centerInside"
+            android:src="@drawable/tutorialbuttonstates"
+            tools:ignore="ContentDescription" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:id="@+id/btnShop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="viewShop"
+            android:scaleType="fitCenter"
+            android:src="@drawable/shopbuttonstates"
+            tools:ignore="ContentDescription" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:measureWithLargestChild="true"
+            android:stretchColumns="*" >
+
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/btnInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:onClick="viewInfo"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/infobuttonstates"
+                    tools:ignore="ContentDescription" />
+            </TableRow>
+        </TableLayout>
+    </TableRow>
+
+</TableLayout>

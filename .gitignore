@@ -1,0 +1,20 @@
+/openal.dylib
+/nbproject
+/test
+/liblwjgl.dylib
+/dist
+/build.xml
+/build
+/master-application.jnlp
+.DS_Store
+/MANIFEST.MF
+/assets
+
+# Exclude the mobile folder
+/mobile/*
+# Except the src and res folders
+!/mobile/src
+!/mobile/res
+# And manifest file
+!/mobile/AndroidManifest.xml
+
