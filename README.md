@@ -1,4 +1,4 @@
-Roll-Ball-Roll
+Roll Ball Roll
 ==============
 
 Make that ball roll! An Android app I made for my third year university project. Link to app coming soon!
