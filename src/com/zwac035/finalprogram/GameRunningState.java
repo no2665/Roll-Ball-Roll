@@ -180,18 +180,20 @@ public class GameRunningState extends AbstractAppState implements TouchListener,
     
     public void pause()  {
         super.setEnabled(false);
-        bulletAppState.setEnabled(false);
-        
-        gamePauseState.setEnabled(true);
-        // Safely run this on the main thread
-        main.enqueue(new Callable<Void>() {
-            @Override
-            public Void call(){
-                guiNode.detachChild(Res.pauseButton);
-                Res.backgroundMusic.pause();
-                return null;
-            }
-        });
+        if(this.initialized){
+            bulletAppState.setEnabled(false);
+
+            gamePauseState.setEnabled(true);
+            // Safely run this on the main thread
+            main.enqueue(new Callable<Void>() {
+                @Override
+                public Void call(){
+                    guiNode.detachChild(Res.pauseButton);
+                    Res.backgroundMusic.pause();
+                    return null;
+                }
+            });
+        }
     }
     
     @Override

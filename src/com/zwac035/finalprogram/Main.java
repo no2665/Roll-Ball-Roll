@@ -57,7 +57,7 @@ public class Main extends SimpleApplication {
      * accelerometer
      */
     private static List<ForceChangeListener> listeners = new ArrayList<ForceChangeListener>();
-    
+        
     /**
      * Classic main method
      * @param args 
@@ -133,6 +133,7 @@ public class Main extends SimpleApplication {
         
         rootNode.addLight(a);
         rootNode.attachChild(audioNode);
+
     }
 
     /**

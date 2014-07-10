@@ -37,14 +37,6 @@ import com.jme3.system.android.AndroidConfigChooser.ConfigType;
 
 /**
  * Android activity that launches the game.
- * 
- * Known bugs: - After locking and then unlocking the screen while playing the
- * game, the Sensor Listener stops working. See this link for the reason why:
- * http
- * ://android-developers.blogspot.co.uk/2011/11/making-android-games-that-play
- * -nice.html - Pressing the home button, just as the game is launching causes
- * the app to crash
- * 
  * @author Lewis Chun
  */
 public class MainActivity extends AndroidHarness implements SensorEventListener {

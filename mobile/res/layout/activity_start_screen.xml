@@ -73,7 +73,7 @@
         android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.8"
+        android:layout_weight="0.65"
         android:paddingLeft="150dp" >
 
         <ImageButton
@@ -103,6 +103,10 @@
             android:background="@null"
             android:onClick="viewShop"
             android:scaleType="fitCenter"
+            android:paddingTop="40dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="40dp"
+            android:paddingLeft="5dp"
             android:src="@drawable/shopbuttonstates"
             tools:ignore="ContentDescription" />
 

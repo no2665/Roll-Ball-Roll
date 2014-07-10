@@ -110,22 +110,24 @@ public class Res {
             greyBackground.setImage(assetManager, "Textures/Grey.png", true);
             pauseButton = new Picture("Pause");
             pauseButton.setImage(assetManager, "Textures/pause.png", true);
-
-            chink = new AudioNode(assets, "Sounds/chink.ogg");
-            chink.setPositional(false);
-            chink.setLooping(false);
-            chink.setVolume(3);
             
             backgroundMusic = new AudioNode(assets, "Sounds/one_0.ogg");
             backgroundMusic.setPositional(false);
             backgroundMusic.setLooping(true);
             backgroundMusic.setVolume(1);
             
-            explosion = new AudioNode(assets, "Sounds/boom4.wav");
-            explosion.setPositional(false);
-            explosion.setLooping(false);
-            explosion.setVolume(3);
         }
+        
+        chink = new AudioNode(assets, "Sounds/chink.ogg");
+        chink.setPositional(false);
+        chink.setLooping(false);
+        chink.setVolume(3);
+        
+        explosion = new AudioNode(assets, "Sounds/boom4.wav");
+        explosion.setPositional(false);
+        explosion.setLooping(false);
+        explosion.setVolume(3);
+        
         audioNode.attachChild(chink);
         audioNode.attachChild(backgroundMusic);
         audioNode.attachChild(explosion);

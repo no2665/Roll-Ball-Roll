@@ -107,7 +107,7 @@ public class Level {
     public FloorType getFloorPiece(float atLoc){
         float diff = atLoc - levelStartPoint;
         int index = (int) (diff / 4f);
-        if(index >= floorPieces.length){
+        if(floorPieces == null || index >= floorPieces.length){
             return FloorType.PLAIN;
         }
         return floorPieces[index];

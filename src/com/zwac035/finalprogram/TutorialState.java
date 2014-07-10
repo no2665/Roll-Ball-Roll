@@ -164,6 +164,8 @@ public class TutorialState extends AbstractAppState implements TouchListener, Ph
         createCheckPointAt(46);
         createCheckPointAt(56);
         
+        Player.getInstance().moveTo(0, 0, 1);
+        
         physics.addCollisionListener(this);
         bulletAppState.setEnabled(false);
                 

@@ -36,6 +36,7 @@ public class LevelManager implements Manager, LevelChangeObservable {
     private Level currentLevel = null;
     private Level simpleLevel;
     private Level explodingLevel;
+    private Level heavyBoxLevel;
     private Level tutorialLevel;
     private boolean tutorialLevels;
     private float rndSteer = 0;
@@ -52,10 +53,13 @@ public class LevelManager implements Manager, LevelChangeObservable {
                 currentLevel.setStartPoint(start);
             } else if(Res.rnd.nextFloat() < rndSteer){
                 // Pick a random level
-                if(Res.rnd.nextFloat() < 0.7d) {
+                float r = Res.rnd.nextFloat();
+                if(r < 0.1) {
                     currentLevel = simpleLevel;
-                } else {
+                } else if(r < 0.2){
                     currentLevel = explodingLevel;
+                } else {
+                    currentLevel = heavyBoxLevel;
                 }
                 int start = ((int) distanceTravelled / 4) * 4;
                 currentLevel.setStartPoint(start);
@@ -84,6 +88,7 @@ public class LevelManager implements Manager, LevelChangeObservable {
         } else {
             createSimpleLevel();
             createExplodingLevel();
+            createHeavyBoxLevel();
         }
     }
     
@@ -144,6 +149,37 @@ public class LevelManager implements Manager, LevelChangeObservable {
                     FloorType.PLAIN,
                     FloorType.PLAIN
         });
+    }
+    
+    private void createHeavyBoxLevel(){
+        heavyBoxLevel = new Level(4 * 4);
+        heavyBoxLevel.setBoxData(new Vector3f[] {
+                new Vector3f(-5, 0, 1),
+                new Vector3f(5, 0, 1),
+                
+                new Vector3f(3.5f, 3, 1),
+                new Vector3f(-3.5f, 3, 1),
+                
+                new Vector3f(-2, 6, 1),
+                new Vector3f(2, 6, 1),
+                
+                new Vector3f(0, 9, 100),
+                
+                new Vector3f(0, 11, 1)
+                
+            }, new BoxType[] {
+                BoxType.HEAVY,
+                BoxType.HEAVY,
+                
+                BoxType.HEAVY,
+                BoxType.HEAVY,
+                
+                BoxType.HEAVY,
+                BoxType.HEAVY,
+                
+                BoxType.EXPLOSION,
+                BoxType.MAGNET
+            });
     }
 
     public void removeAll() {
