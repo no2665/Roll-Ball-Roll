@@ -37,6 +37,8 @@ public class LevelManager implements Manager, LevelChangeObservable {
     private Level simpleLevel;
     private Level explodingLevel;
     private Level heavyBoxLevel;
+    private Level fallingBoxLevel;
+    private Level magnetLevel;
     private Level tutorialLevel;
     private boolean tutorialLevels;
     private float rndSteer = 0;
@@ -49,19 +51,23 @@ public class LevelManager implements Manager, LevelChangeObservable {
         if(!isActive()){
             if(tutorialLevels){
                 currentLevel = tutorialLevel;
-                int start = ((int) distanceTravelled / 4) * 4;
+                int start = (distanceTravelled / 4) * 4;
                 currentLevel.setStartPoint(start);
             } else if(Res.rnd.nextFloat() < rndSteer){
                 // Pick a random level
                 float r = Res.rnd.nextFloat();
-                if(r < 0.1) {
+                if(r < 0.2) {
                     currentLevel = simpleLevel;
-                } else if(r < 0.2){
+                } else if(r < 0.4){
                     currentLevel = explodingLevel;
-                } else {
+                } else if(r < 0.6) {
                     currentLevel = heavyBoxLevel;
+                } else if(r < 0.8){
+                    currentLevel = fallingBoxLevel;
+                } else {
+                    currentLevel = magnetLevel;
                 }
-                int start = ((int) distanceTravelled / 4) * 4;
+                int start = (distanceTravelled / 4) * 4;
                 currentLevel.setStartPoint(start);
                 rndSteer = 0;
             } else {
@@ -89,6 +95,8 @@ public class LevelManager implements Manager, LevelChangeObservable {
             createSimpleLevel();
             createExplodingLevel();
             createHeavyBoxLevel();
+            createFallingBoxLevel();
+            createMagnetLevel();
         }
     }
     
@@ -163,7 +171,7 @@ public class LevelManager implements Manager, LevelChangeObservable {
                 new Vector3f(-2, 6, 1),
                 new Vector3f(2, 6, 1),
                 
-                new Vector3f(0, 9, 100),
+                new Vector3f(0, 9, 400),
                 
                 new Vector3f(0, 11, 1)
                 
@@ -181,10 +189,59 @@ public class LevelManager implements Manager, LevelChangeObservable {
                 BoxType.MAGNET
             });
     }
+    
+    private void createFallingBoxLevel(){
+        fallingBoxLevel = new Level(4 * 4);
+        fallingBoxLevel.setBoxData(new Vector3f[] {
+                new Vector3f(2, 0, 50),
+                new Vector3f(-1, 2, 50),
+                new Vector3f(0, 4, 50),
+                new Vector3f(-3, 6, 50),
+                new Vector3f(1, 8, 50),
+                new Vector3f(0, 10, 50)
+            }, new BoxType[] {
+                BoxType.random(),
+                BoxType.random(),
+                BoxType.random(),
+                BoxType.random(),
+                BoxType.random(),
+                BoxType.random()
+            });
+    }
+    
+    private void createMagnetLevel(){
+        magnetLevel = new Level(4 * 4);
+        magnetLevel.setBoxData(new Vector3f[] {
+                new Vector3f(-3, -1.5f, 1),
+                new Vector3f(-5, 0.5f, 1),
+                new Vector3f(-3.1f, 0.6f, 1),
+                
+                new Vector3f(3, 6.5f, 1),
+                new Vector3f(5, 8.5f, 1),
+                new Vector3f(3.1f, 8.6f, 1)
+                
+            }, new BoxType[] {
+                BoxType.HEAVY,
+                BoxType.HEAVY,
+                BoxType.MAGNET,
+                BoxType.HEAVY,
+                BoxType.HEAVY,
+                BoxType.MAGNET
+            });
+        magnetLevel.setFloorPieces(new FloorType[] {
+                FloorType.CENTRE_HOLE,
+                FloorType.PLAIN,
+                FloorType.CENTRE_HOLE,
+                FloorType.PLAIN
+            });
+        
+    }
 
     public void removeAll() {
         explodingLevel = null;
         simpleLevel = null;
+        heavyBoxLevel = null;
+        fallingBoxLevel = null;
         tutorialLevel = null;
     }
     
@@ -221,7 +278,7 @@ public class LevelManager implements Manager, LevelChangeObservable {
                     FloorType.PLAIN
         });
     }
-
+    
     public void registerLevelChangeObserver(LevelChangeObserver lco) {
         observers.add(lco);
     }

@@ -87,8 +87,10 @@ public class BoxManager extends LevelChangeManager implements Manager {
             }
 
         } else {
+            float rndInc = ((float) distanceTravelled) / 500;
+            rndInc = rndInc > 0.4f ? 0.4f : rndInc;
             // Spawn some more random boxes.
-            if(Math.random() < 0.5d){
+            if(Math.random() < 0.5f + rndInc){
                 Spatial newBox;
                 double r = Math.random();
                 if(r < 0.4d){

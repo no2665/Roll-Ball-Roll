@@ -92,7 +92,7 @@ public class FloorPool {
     
     public Spatial takePlainPeice(float x, float y, ColorRGBA clr){
         if(plainPool.isEmpty()){
-            return null;
+            return takePeice(x, y, clr, FloorType.random());
         }
         Spatial taken = plainPool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x - (floorWidth/2), y - (floorHeight/2));
@@ -118,7 +118,7 @@ public class FloorPool {
     
     public Spatial takeCentrePeice(float x, float y, ColorRGBA clr){
         if(centrePool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = centrePool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -128,7 +128,7 @@ public class FloorPool {
     
     public Spatial takeX1Peice(float x, float y, ColorRGBA clr){
         if(x1Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = x1Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -138,7 +138,7 @@ public class FloorPool {
     
     public Spatial takeX2Peice(float x, float y, ColorRGBA clr){
         if(x2Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = x2Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -148,7 +148,7 @@ public class FloorPool {
     
     public Spatial takeX3Peice(float x, float y, ColorRGBA clr){
         if(x3Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = x3Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -158,7 +158,7 @@ public class FloorPool {
     
     public Spatial takeX4Peice(float x, float y, ColorRGBA clr){
         if(x4Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = x4Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -168,7 +168,7 @@ public class FloorPool {
     
     public Spatial takeMinX1Peice(float x, float y, ColorRGBA clr){
         if(mX1Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = mX1Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -178,7 +178,7 @@ public class FloorPool {
     
     public Spatial takeMinX2Peice(float x, float y, ColorRGBA clr){
         if(mX2Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = mX2Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -188,7 +188,7 @@ public class FloorPool {
     
     public Spatial takeMinX3Peice(float x, float y, ColorRGBA clr){
         if(mX3Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = mX3Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);
@@ -198,7 +198,7 @@ public class FloorPool {
     
     public Spatial takeMinX4Peice(float x, float y, ColorRGBA clr){
         if(mX4Pool.isEmpty()){
-            return null;
+            return takePlainPeice(x, y, clr);
         }
         Spatial taken = mX4Pool.remove(0);
         resetControl(taken.getControl(RigidBodyControl.class), x, y);

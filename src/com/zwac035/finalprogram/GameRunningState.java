@@ -290,10 +290,10 @@ public class GameRunningState extends AbstractAppState implements TouchListener,
                 case MOVE:
                     if(heldBox != null){
                         RigidBodyControl boxControl = heldBox.getControl(RigidBodyControl.class);
+                        // Move the box. I need to find a better way of moving it though.
                         if(event.getDeltaY() < 0 && heldBox.getLocalTranslation().z < 2){
                             boxControl.setLinearVelocity(new Vector3f(event.getDeltaX(), event.getDeltaY(), 0));
                         } else {
-                            // Move the box. I need to find a better way of moving it though.
                             boxControl.setLinearVelocity(new Vector3f(event.getDeltaX(), 0, event.getDeltaY()));
                         }
                     }

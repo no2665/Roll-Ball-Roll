@@ -51,7 +51,7 @@ public class FloorManager extends LevelChangeManager implements Manager {
     
     public void initialise(){
         // Create pool, and build the start floor
-        pool = new FloorPool(10, 3);
+        pool = new FloorPool(10, 6);
         for(int i = -4; i < 5; i++){
             Spatial newPiece = pool.takePlainPeice(0, i * floorHeight, floorColour.clone());
             changeFloorColour();
@@ -67,8 +67,10 @@ public class FloorManager extends LevelChangeManager implements Manager {
             FloorType f = currentLevel.getFloorPiece(distanceTravelled);
             newPiece = pool.takePeice(0, distanceTravelled, floorColour.clone(), f);
         } else {
+            float rndInc = ((float) distanceTravelled) / 500;
+            rndInc = rndInc > 0.6f ? 0.6f : rndInc;
             // Pick a random piece
-            if(Res.rnd.nextFloat() < 0.2f){
+            if(Res.rnd.nextFloat() < 0.3f + rndInc){
                 newPiece = pool.takePeice(0, distanceTravelled, floorColour.clone(), FloorType.random());
             } else {
                 newPiece = pool.takePlainPeice(0, distanceTravelled, floorColour.clone());

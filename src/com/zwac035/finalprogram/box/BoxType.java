@@ -19,6 +19,11 @@
  */
 package com.zwac035.finalprogram.box;
 
+import com.zwac035.finalprogram.Res;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  *
  * @author Lewis Chun
@@ -27,5 +32,15 @@ public enum BoxType {
     PLAIN,
     EXPLOSION,
     MAGNET,
-    HEAVY
+    HEAVY;
+    
+    // Taken from:
+    // http://stackoverflow.com/questions/1972392/java-pick-a-random-value-from-an-enum
+    private static final List<BoxType> VALUES =
+            Collections.unmodifiableList(Arrays.asList(values()));
+    private static final int SIZE = VALUES.size();
+    
+    public static BoxType random() {
+        return VALUES.get(Res.rnd.nextInt(SIZE));
+    }
 }

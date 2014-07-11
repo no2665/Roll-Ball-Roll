@@ -44,10 +44,13 @@ public class ExplodingBox extends BoxControl implements PhysicsTickListener, Phy
 
     private PhysicsSpace physics;
     private boolean shouldRemove = false;
+    private boolean ballHasTouched = false;
     private float explosionRadius = 6;
     private float explosionForce = 1.5f;
     private int id;
     private ParticleEmitter fire;
+    private long timeOfTouch;
+    private float timeTillExplosion;
     
     public ExplodingBox(PhysicsSpace physics, int id){
         this.physics = physics;
@@ -77,6 +80,8 @@ public class ExplodingBox extends BoxControl implements PhysicsTickListener, Phy
     
     @Override
     public void onTouch() {
+        timeOfTouch = System.currentTimeMillis();
+        timeTillExplosion = Res.rnd.nextFloat() * 2f;
         physics.addTickListener(this);
     }
 
@@ -89,6 +94,7 @@ public class ExplodingBox extends BoxControl implements PhysicsTickListener, Phy
     
     public void stop(){
         physics.removeCollisionListener(this);
+        physics.removeTickListener(this);
     }
     
     public boolean shouldRemove(){
@@ -121,25 +127,29 @@ public class ExplodingBox extends BoxControl implements PhysicsTickListener, Phy
     }
 
     public void prePhysicsTick(PhysicsSpace space, float tpf) {
-        for(PhysicsRigidBody b: space.getRigidBodyList()){
-            // This is testing to see if b is a ball/box or the camera.
-            // This is also a really crap way of doing it,
-            // but at the moment it's the only way I can stop the camera
-            // being affected by the force.
-            if(!b.getGravity().equals(Vector3f.ZERO)){
-                Vector3f bPos = b.getPhysicsLocation();
-                Vector3f sPos = spatial.getLocalTranslation();
-                Vector3f vec = bPos.subtractLocal(sPos);
-                float force = explosionRadius - vec.length();
-                force *= explosionForce;
-                force = force > 0 ? force : 0;
-                vec.normalizeLocal();
-                vec.multLocal(force);
-                b.applyImpulse(vec, Vector3f.ZERO);
+        long timeNow = System.currentTimeMillis();
+        if(ballHasTouched || (timeNow - timeOfTouch) / 1000 >= timeTillExplosion){
+            for(PhysicsRigidBody b: space.getRigidBodyList()){
+                // This is testing to see if b is a ball/box or the camera.
+                // This is also a really crap way of doing it,
+                // but at the moment it's the only way I can stop the camera
+                // being affected by the force.
+                if(!b.getGravity().equals(Vector3f.ZERO)){
+                    Vector3f bPos = b.getPhysicsLocation();
+                    Vector3f sPos = spatial.getLocalTranslation();
+                    Vector3f vec = bPos.subtractLocal(sPos);
+                    float force = explosionRadius - vec.length();
+                    force *= explosionForce;
+                    force = force > 0 ? force : 0;
+                    vec.normalizeLocal();
+                    vec.multLocal(force);
+                    b.applyImpulse(vec, Vector3f.ZERO);
+                }
             }
+            space.removeTickListener(this);
+            shouldRemove = true;
+            ballHasTouched = false;
         }
-        space.removeTickListener(this);
-        shouldRemove = true;
     }
 
     public void physicsTick(PhysicsSpace space, float tpf) {
@@ -157,6 +167,7 @@ public class ExplodingBox extends BoxControl implements PhysicsTickListener, Phy
                     ||
                (nameA.equals("ball") && nameB.equals(id + ""))){
                 physics.addTickListener(this);
+                ballHasTouched = true;
             }
         }
     }
