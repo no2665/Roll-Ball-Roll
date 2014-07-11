@@ -105,7 +105,7 @@ public class GameCamera {
         Node upperPlaneNode = new Node("uplane");
         upperPlaneNode.addControl(upperCollision);
         // And another plane for bottom of the screen
-        Plane lowerPlane = new Plane(Vector3f.UNIT_Y, -8.5f);
+        Plane lowerPlane = new Plane(Vector3f.UNIT_Y, -19f);
         RigidBodyControl lowerCollision = new RigidBodyControl(
                                     new PlaneCollisionShape(lowerPlane), 1f);
         Node lowerPlaneNode = new Node("lplane");
@@ -123,7 +123,7 @@ public class GameCamera {
         centralNode.attachChild(lowerPlaneNode);
         
         // For debug purposes, put a box infront of the center point
-        Box box = new Box(0.5f, 0.5f, 0.5f);
+        /*Box box = new Box(0.5f, 0.5f, 0.5f);
         Geometry debugBox = new Geometry("Debug Box", box);
         Material debugMat = 
                 new Material(Res.assets, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -135,7 +135,7 @@ public class GameCamera {
         float centerOffset = 4 * 4;
         debugBox.setLocalTranslation(Vector3f.UNIT_Y.mult(centerOffset));
         
-        centralNode.attachChild(debugBox);
+        centralNode.attachChild(debugBox);*/
         
         // Add some lighting
         PointLight light = new PointLight();

@@ -68,6 +68,7 @@ public class GameRunningState extends AbstractAppState implements TouchListener,
      * Text in the top right corner, for displaying the score
      */
     private BitmapText scoreText;
+    private BitmapText countDownText;
     /**
      * The physics engine
      */
@@ -96,7 +97,8 @@ public class GameRunningState extends AbstractAppState implements TouchListener,
     private boolean shouldEnable;
     private SimpleApplication main;
     
-    public boolean shouldStop = false;
+    public boolean shouldStop = false, countingDown = false;
+    public long timer;
     public float score = 0;
     
     public GameRunningState(boolean enabled){
@@ -147,6 +149,11 @@ public class GameRunningState extends AbstractAppState implements TouchListener,
         pauseButton.setWidth(pictureDim);
         pauseButton.setPosition(5, screenHeight - pictureDim - 5);
         guiNode.attachChild(pauseButton);
+        
+        // Create the count down text
+        countDownText = new BitmapText(Res.guiFont, false);
+        countDownText.setSize(screenWidth * 0.2f);
+        countDownText.setColor(ColorRGBA.Yellow);
         
         mainGuiNode = main.getGuiNode();
         
@@ -217,6 +224,30 @@ public class GameRunningState extends AbstractAppState implements TouchListener,
             if(playerLocation.z < -5){
                 // GAME OVER!
                 shouldStop = true;
+            }
+            if(playerLocation.y < screenCenterLocation.y - 9.5){
+                if(countingDown){
+                    long timeNow = System.currentTimeMillis();
+                    int timeLeft = 5 - (((int)(timeNow - timer))/1000);
+                    countDownText.setText(Integer.toString(timeLeft));
+                    if(timeLeft <= 0){
+                        countDownText.setText("");
+                        mainGuiNode.detachChild(countDownText);
+                        shouldStop = true;
+                    }
+                } else {
+                    countingDown = true;
+                    timer = System.currentTimeMillis();
+                    countDownText.setText("5");
+                    mainGuiNode.attachChild(countDownText);
+                }
+                float textX = (playerLocation.x + 6) * screenWidth / 12;
+                countDownText.setLocalTranslation(textX - (countDownText.getLineWidth()), countDownText.getHeight() + 5, 0);
+            } else {
+                countingDown = false;
+                if(mainGuiNode.hasChild(countDownText)){
+                    mainGuiNode.detachChild(countDownText);
+                }
             }
             float screenCenterY = screenCenterLocation.y + centerOffset;
             manager.updateManagers(tpf, screenCenterY);

@@ -51,8 +51,8 @@ public class FloorManager extends LevelChangeManager implements Manager {
     
     public void initialise(){
         // Create pool, and build the start floor
-        pool = new FloorPool(8, 3);
-        for(int i = -2; i < 5; i++){
+        pool = new FloorPool(10, 3);
+        for(int i = -4; i < 5; i++){
             Spatial newPiece = pool.takePlainPeice(0, i * floorHeight, floorColour.clone());
             changeFloorColour();
             listOfPieces.add(newPiece);

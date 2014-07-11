@@ -129,7 +129,7 @@ public class BoxManager extends LevelChangeManager implements Manager {
     
     public boolean isOffScreen(Spatial s, int distanceTravelled){
         Vector3f sLoc = s.getLocalTranslation();
-        return (sLoc.z < -5 || sLoc.x > 10 || sLoc.x < -10 || sLoc.y - distanceTravelled < -26);
+        return (sLoc.z < -5 || sLoc.x > 10 || sLoc.x < -10 || sLoc.y - distanceTravelled < -34);
     }
     
     public void removeAll(){
