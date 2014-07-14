@@ -31,6 +31,7 @@ import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
+import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.collision.CollisionResults;
@@ -40,6 +41,7 @@ import com.jme3.font.Rectangle;
 import com.jme3.input.controls.TouchListener;
 import com.jme3.input.event.TouchEvent;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Plane;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
@@ -82,6 +84,7 @@ public class TutorialState extends AbstractAppState implements TouchListener, Ph
     private Node rootNode;
     private Node guiNode;
     private Node boxNode;
+    private Node safetyPlaneNode;
     private ManagerFacade manager;
     private BitmapText instructions;
     private BitmapText tapToContinue;
@@ -120,6 +123,19 @@ public class TutorialState extends AbstractAppState implements TouchListener, Ph
         manager = new ManagerFacade(boxNode, floorNode, triangleNode, physics, true);
         manager.initialise();
         
+        // Create a plane at the bottom of the screen to stop the balling 
+        // rolling out of view
+        Plane lowerPlane = new Plane(Vector3f.UNIT_Y, -8.5f);
+        RigidBodyControl lowerCollision = new RigidBodyControl(
+                                    new PlaneCollisionShape(lowerPlane), 1f);
+        safetyPlaneNode = new Node("safetyplane");
+        safetyPlaneNode.addControl(lowerCollision);
+        lowerCollision.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_02);
+        lowerCollision.setKinematic(true);
+        // Add it to the camera's node so it moves with it
+        GameCamera.getInstance().getCamNode().attachChild(safetyPlaneNode);
+        physics.add(safetyPlaneNode);
+        
         rootNode.attachChild(floorNode);
         rootNode.attachChild(boxNode);
         rootNode.attachChild(triangleNode);
@@ -130,7 +146,7 @@ public class TutorialState extends AbstractAppState implements TouchListener, Ph
         instructions = new BitmapText(Res.guiFont, false);
         instructions.setText("You control this ball. \n"
                 + "Tilt your phone to move it.");
-        instructions.setSize(Res.guiFont.getCharSet().getRenderedSize() * 1.5f);
+        instructions.setSize(screenWidth * 0.08f);
         instructions.setBox(new Rectangle(0, instructions.getLineHeight() * 3, screenWidth, instructions.getHeight() * 3));
         // Move the text up so that there room for 3 lines of text
         instructions.setAlignment(BitmapFont.Align.Center);
@@ -138,21 +154,22 @@ public class TutorialState extends AbstractAppState implements TouchListener, Ph
         
         tapToContinue = new BitmapText(Res.guiFont, false);
         tapToContinue.setText("Tap to continue...  ");
-        tapToContinue.setSize(Res.guiFont.getCharSet().getRenderedSize());
+        tapToContinue.setSize(screenWidth * 0.04f);
         tapToContinue.setBox(new Rectangle(screenWidth - tapToContinue.getLineWidth(), tapToContinue.getLineHeight(), tapToContinue.getLineWidth(), tapToContinue.getHeight()));
         tapToContinue.setAlignment(BitmapFont.Align.Right);
         tapToContinue.setVerticalAlignment(BitmapFont.VAlign.Top);
         
         scoreText = new BitmapText(Res.guiFont, false);
-        scoreText.setSize(Res.guiFont.getCharSet().getRenderedSize() * 2);
+        scoreText.setSize(screenWidth * 0.1f);
         scoreText.setColor(ColorRGBA.White);
         scoreText.setText("0.0");
         scoreText.setLocalTranslation(screenWidth - scoreText.getLineWidth(), screenHeight, 0);
         
         pauseButton = Res.pauseButton;
-        pauseButton.setHeight(50);
-        pauseButton.setWidth(50);
-        pauseButton.setPosition(5, screenHeight-55);
+        float pictureDim = screenWidth * 0.1f;
+        pauseButton.setHeight(pictureDim);
+        pauseButton.setWidth(pictureDim);
+        pauseButton.setPosition(5, screenHeight - pictureDim - 5);
         
         guiNode = new Node("tutGUI");
         main.getGuiNode().attachChild(guiNode);
@@ -386,12 +403,15 @@ public class TutorialState extends AbstractAppState implements TouchListener, Ph
         rootNode.removeFromParent();
         appStateManager.detach(this);
         manager.removeEverything();
+        PhysicsSpace physics = bulletAppState.getPhysicsSpace();
         for(GhostControl g: checkpoints){
-            bulletAppState.getPhysicsSpace().remove(g);
+            physics.remove(g);
         }
-        bulletAppState.getPhysicsSpace().removeCollisionListener(this);
+        physics.remove(safetyPlaneNode);
+        physics.removeCollisionListener(this);
         mainClass.getInputManager().removeListener(this);
         Main.unregisterForceChangeListener(this);
+        GameCamera.getInstance().getCamNode().detachChildNamed("safetyplane");
         GameRunningState run = appStateManager.getState(GameRunningState.class);
         run.begin();
     }

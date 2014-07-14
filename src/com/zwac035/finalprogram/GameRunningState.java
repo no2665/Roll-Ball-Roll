@@ -168,7 +168,7 @@ public class GameRunningState extends AbstractAppState implements TouchListener,
      * Call to start the game
      */
     public void begin(){
-        GameCamera.getInstance().moveTo(0);
+        GameCamera.getInstance().reset();
         Player.getInstance().moveTo(0, 0, 1);
         mainGuiNode.attachChild(guiNode);
         mainRootNode.attachChild(rootNode);

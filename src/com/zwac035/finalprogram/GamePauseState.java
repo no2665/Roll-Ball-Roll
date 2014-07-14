@@ -87,7 +87,7 @@ public class GamePauseState extends AbstractAppState implements TouchListener {
         pausedText.setText("Paused \n Tap to continue");
         // This is the of the text, change the number 2 to make it bigger
         // or small
-        pausedText.setSize(Res.guiFont.getCharSet().getRenderedSize() * 2);
+        pausedText.setSize(screenWidth * 0.05f);
         // The texts coordinate start in the top left corner,
         // so if we move it up a bit, the text will be centered
         pausedText.move(0, pausedText.getHeight() / 2, 0);

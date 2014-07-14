@@ -24,17 +24,14 @@ import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.light.PointLight;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.CameraNode;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.CameraControl;
 import com.jme3.scene.control.LightControl;
-import com.jme3.scene.shape.Box;
 
 /**
  * Sets up the camera of the game
@@ -106,6 +103,7 @@ public class GameCamera {
         upperPlaneNode.addControl(upperCollision);
         // And another plane for bottom of the screen
         Plane lowerPlane = new Plane(Vector3f.UNIT_Y, -19f);
+
         RigidBodyControl lowerCollision = new RigidBodyControl(
                                     new PlaneCollisionShape(lowerPlane), 1f);
         Node lowerPlaneNode = new Node("lplane");
@@ -121,21 +119,6 @@ public class GameCamera {
         // That way we can move them both by moving the central point.
         centralNode.attachChild(upperPlaneNode);
         centralNode.attachChild(lowerPlaneNode);
-        
-        // For debug purposes, put a box infront of the center point
-        /*Box box = new Box(0.5f, 0.5f, 0.5f);
-        Geometry debugBox = new Geometry("Debug Box", box);
-        Material debugMat = 
-                new Material(Res.assets, "Common/MatDefs/Misc/Unshaded.j3md");
-        debugMat.setColor("Color", ColorRGBA.White);
-        debugBox.setMaterial(debugMat);
-        debugBox.setName("debug");
-        // Distance from the centre of the screen, to when the floor goes 
-        // offscreen
-        float centerOffset = 4 * 4;
-        debugBox.setLocalTranslation(Vector3f.UNIT_Y.mult(centerOffset));
-        
-        centralNode.attachChild(debugBox);*/
         
         // Add some lighting
         PointLight light = new PointLight();
@@ -170,9 +153,9 @@ public class GameCamera {
      * Moves the camera to (0, y, 0)
      * @param y 
      */
-    public void moveTo(float y){
+    public void reset(){
         centralNodeControl.setEnabled(false);
-        centralNode.setLocalTranslation(0, y, 0);
+        centralNode.setLocalTranslation(0, 0, 0);
         centralNodeControl.setEnabled(true);
         // Re-enabling the control resets the gravity,
         // so we have to set it back to zero.

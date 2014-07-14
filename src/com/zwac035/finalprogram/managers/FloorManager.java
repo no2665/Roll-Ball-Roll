@@ -39,21 +39,28 @@ public class FloorManager extends LevelChangeManager implements Manager {
     private ArrayList<Spatial> listOfPieces;
     private ColorRGBA floorColour, beginColour, finalColour;
     private FloorPool pool;
+    private boolean tutorialStartFloor;
     
-    public FloorManager(Node root, PhysicsSpace physics){
+    public FloorManager(Node root, PhysicsSpace physics, boolean tutorial){
         rootNode = root;
         this.physics = physics;
         beginColour = ColorRGBA.randomColor();
         floorColour = beginColour;
         finalColour = ColorRGBA.randomColor();
         listOfPieces = new ArrayList<Spatial>();
+        tutorialStartFloor = tutorial;
     }
     
     public void initialise(){
         // Create pool, and build the start floor
         pool = new FloorPool(10, 6);
         for(int i = -4; i < 5; i++){
-            Spatial newPiece = pool.takePlainPeice(0, i * floorHeight, floorColour.clone());
+            Spatial newPiece;
+            if(!tutorialStartFloor && i != 0 && Res.rnd.nextFloat() < 0.3f){
+                newPiece = pool.takePeice(0, i * floorHeight, floorColour.clone(), FloorType.random());
+            } else {
+                newPiece = pool.takePlainPeice(0, i * floorHeight, floorColour.clone());
+            }
             changeFloorColour();
             listOfPieces.add(newPiece);
             rootNode.attachChild(newPiece);

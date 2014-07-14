@@ -229,9 +229,9 @@ public class LevelManager implements Manager, LevelChangeObservable {
                 BoxType.MAGNET
             });
         magnetLevel.setFloorPieces(new FloorType[] {
-                FloorType.CENTRE_HOLE,
+                FloorType.MIN_X1_HOLE,
                 FloorType.PLAIN,
-                FloorType.CENTRE_HOLE,
+                FloorType.X1_HOLE,
                 FloorType.PLAIN
             });
         

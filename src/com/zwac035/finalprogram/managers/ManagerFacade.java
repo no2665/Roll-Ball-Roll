@@ -38,7 +38,7 @@ public class ManagerFacade {
         tutorialLevels = tutorial;
         managers = new Manager[4];
         LevelManager levels = new LevelManager(tutorialLevels);
-        FloorManager floor = new FloorManager(floorNode, physics);
+        FloorManager floor = new FloorManager(floorNode, physics, tutorial);
         BoxManager boxes = new BoxManager(boxNode, physics);
         TriangleManager triangles = new TriangleManager(triangleNode);
         
