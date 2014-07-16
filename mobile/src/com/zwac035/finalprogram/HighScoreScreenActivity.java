@@ -22,7 +22,10 @@ package com.zwac035.finalprogram;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.zwac035.finalprogram.Database.HighScoreTable;
@@ -49,16 +52,29 @@ public class HighScoreScreenActivity extends Activity {
 		c.moveToFirst();
 		int nameIndex = c.getColumnIndex(HighScoreTable.NAME);
 		int scoreIndex = c.getColumnIndex(HighScoreTable.SCORE);
-		TextView names = (TextView) findViewById(R.id.txtName);
-		TextView scores = (TextView) findViewById(R.id.txtScore);
+		TableLayout highScoreTable = (TableLayout) findViewById(R.id.highScoreTable);
 		int i = 0;
-		// Loop through the rows. Display a maximum of 10 scores
-		while (!c.isAfterLast() && i++ < 15) {
-			names.setText(names.getText() + "\n" + c.getString(nameIndex));
-			scores.setText(scores.getText() + "\n" + c.getString(scoreIndex));
+		// Loop through the rows. Display a maximum of 25 scores
+		while (!c.isAfterLast() && i++ < 25) {
+
+			TextView name = new TextView(this);
+			name.setText(c.getString(nameIndex));
+			name.setTextAppearance(this, android.R.attr.textAppearanceMedium);
+			name.setTextColor(Color.BLACK);
+
+			TextView score = new TextView(this);
+			score.setText(c.getString(scoreIndex));
+			score.setTextAppearance(this, android.R.attr.textAppearanceMedium);
+			score.setTextColor(Color.BLACK);
+
+			TableRow newRow = new TableRow(this);
+			newRow.addView(name);
+			newRow.addView(score);
+
+			highScoreTable.addView(newRow);
+
 			c.moveToNext();
 		}
 		db.close();
 	}
-
 }

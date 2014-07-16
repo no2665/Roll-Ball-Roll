@@ -81,7 +81,11 @@ public class ExplodingBox extends BoxControl implements PhysicsTickListener, Phy
     @Override
     public void onTouch() {
         timeOfTouch = System.currentTimeMillis();
-        timeTillExplosion = (float) Math.exp(Res.rnd.nextFloat());
+        if(Res.rnd.nextFloat() < 0.2f){
+            timeTillExplosion = 0;
+        } else {
+            timeTillExplosion = (float) Math.exp(Res.rnd.nextFloat() + 0.25f);
+        }
         physics.addTickListener(this);
     }
 

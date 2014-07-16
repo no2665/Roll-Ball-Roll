@@ -1,18 +1,15 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/s"
     android:background="#E69316"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <LinearLayout
-        android:id="@+id/verticalLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/numTrianglesTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Credits"
@@ -20,7 +17,6 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -31,7 +27,6 @@
     The official jMonkey website can be found here: http://jmonkeyengine.org/" />
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -41,7 +36,6 @@
             android:text="Thanks to Pheonton of the Open Game Art website for the background music:\n http://opengameart.org/users/pheonton" />
 
         <TextView
-            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -51,7 +45,6 @@
             android:text="Thanks also to dklon for the explosion sounds:\n http://opengameart.org/users/dklon" />
 
         <TextView
-            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
@@ -61,7 +54,6 @@
             android:text="Thanks to Downdate for the basketball texture: \n http://opengameart.org/content/basket-ball-texture" />
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Source Code"
@@ -69,7 +61,6 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_vertical_margin"

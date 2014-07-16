@@ -126,7 +126,7 @@ public class Main extends SimpleApplication {
         
         // Turn off debug stats
         setDisplayStatView(false);
-        setDisplayFps(true);
+        setDisplayFps(false);
         
         AmbientLight a = new AmbientLight();
         a.setColor(ColorRGBA.Gray);
