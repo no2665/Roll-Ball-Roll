@@ -1,7 +1,7 @@
 Roll Ball Roll
 ==============
 
-Make that ball roll! An Android app I made for my third year university project. Link to app coming soon!
+Make that ball roll! An Android app I made for my third year university project. [Here it is in the play store](https://play.google.com/store/apps/details?id=com.zwac035.finalprogram)
 
 The app is built using the amazing [jMonkey engine](http://jmonkeyengine.org/). The jMonkey SDK is required to run the code in this repository. If you wish to run it, you'll need to create a new project in the jMonkey SDK, and copy the src/ and mobile/ folders into the projects base directory. You may also have to enable Android development in the projects properties.
 
